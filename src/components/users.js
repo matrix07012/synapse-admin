@@ -599,7 +599,7 @@ export const UserEdit = props => {
               style={{ width: "100%" }}
               hasBulkActions={true}
               header={<UserMediaDatagridHeader />}
-            ></Datagrid>
+            />
             <FunctionField
               label="resources.users_media.image"
               render={record => {
