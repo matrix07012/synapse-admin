@@ -97,6 +97,16 @@ const date_format = {
   second: "2-digit",
 };
 
+const choices_medium = [
+  { id: "email", name: "resources.users.email" },
+  { id: "msisdn", name: "resources.users.msisdn" },
+];
+
+const choices_type = [
+  { id: "bot", name: "bot" },
+  { id: "support", name: "support" },
+];
+
 const UserListActions = ({
   currentSort,
   className,
@@ -299,15 +309,19 @@ export const UserCreate = props => (
         autoComplete="new-password"
         validate={maxLength(512)}
       />
+      <SelectInput
+        source="user_type"
+        choices={choices_type}
+        translateChoice={false}
+        allowEmpty={true}
+        resettable
+      />
       <BooleanInput source="admin" />
       <ArrayInput source="threepids">
         <SimpleFormIterator disableReordering>
           <SelectInput
             source="medium"
-            choices={[
-              { id: "email", name: "resources.users.email" },
-              { id: "msisdn", name: "resources.users.msisdn" },
-            ]}
+            choices={choices_medium}
             validate={required()}
           />
           <TextInput source="address" validate={validateAddress} />
@@ -464,6 +478,14 @@ export const UserEdit = props => {
             autoComplete="new-password"
             helperText="resources.users.helper.password"
           />
+          <SelectInput
+            source="user_type"
+            choices={choices_type}
+            translateChoice={false}
+            allowEmpty={true}
+            resettable
+          />
+          />
           <BooleanInput source="admin" />
           <BooleanInput
             source="deactivated"
@@ -479,14 +501,8 @@ export const UserEdit = props => {
           path="threepid"
         >
           <ArrayInput source="threepids">
-            <SimpleFormIterator disableReordering>
-              <SelectInput
-                source="medium"
-                choices={[
-                  { id: "email", name: "resources.users.email" },
-                  { id: "msisdn", name: "resources.users.msisdn" },
-                ]}
-              />
+           <SimpleFormIterator disableReordering>
+              <SelectInput source="medium" choices={choices_medium} />
               <TextInput source="address" />
             </SimpleFormIterator>
           </ArrayInput>
