@@ -599,7 +599,7 @@ export const UserEdit = props => {
               style={{ width: "100%" }}
               hasBulkActions={true}
               header={<UserMediaDatagridHeader />}
-            />
+            >
             <FunctionField
               label="resources.users_media.image"
               render={record => {
@@ -638,16 +638,8 @@ export const UserEdit = props => {
             <DateField
               source="created_ts"
               showTime
-              options={{
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              }}
+              options={date_format}
             />
-            <Datagrid style={{ width: "100%" }}>
               <DateField source="created_ts" showTime options={date_format} />
               <DateField
                 source="last_access_ts"
