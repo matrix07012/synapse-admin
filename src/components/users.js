@@ -485,7 +485,6 @@ export const UserEdit = props => {
             allowEmpty={true}
             resettable
           />
-          />
           <BooleanInput source="admin" />
           <BooleanInput
             source="deactivated"
@@ -501,7 +500,7 @@ export const UserEdit = props => {
           path="threepid"
         >
           <ArrayInput source="threepids">
-           <SimpleFormIterator disableReordering>
+            <SimpleFormIterator disableReordering>
               <SelectInput source="medium" choices={choices_medium} />
               <TextInput source="address" />
             </SimpleFormIterator>
@@ -596,62 +595,59 @@ export const UserEdit = props => {
             perPage={50}
             sort={{ field: "created_ts", order: "DESC" }}
           >
-                      <Datagrid
+            <Datagrid
               style={{ width: "100%" }}
               hasBulkActions={true}
               header={<UserMediaDatagridHeader />}
-            >
-              <FunctionField
-                label="resources.users_media.image"
-                render={record => {
-                  let data = {
-                    title:
-                      record.media_type.startsWith("image") &&
-                      record.media_length
-                        ? record.upload_name || record.media_id
-                        : translate(
-                            "resources.users_media.preview_unavailable"
-                          ),
-                    imgURL: record.media_type.startsWith("image")
-                      ? `${localStorage.getItem(
-                          "base_url"
-                        )}/_matrix/media/v1/thumbnail/${localStorage.getItem(
-                          "home_server"
-                        )}/${record.media_id}?width=40&height=40&method=crop`
-                      : null,
-                    downloadURL: `${localStorage.getItem(
-                      "base_url"
-                    )}/_matrix/media/r0/download/${localStorage.getItem(
-                      "home_server"
-                    )}/${record.media_id}`,
-                  };
+            ></Datagrid>
+            <FunctionField
+              label="resources.users_media.image"
+              render={record => {
+                let data = {
+                  title:
+                    record.media_type.startsWith("image") && record.media_length
+                      ? record.upload_name || record.media_id
+                      : translate("resources.users_media.preview_unavailable"),
+                  imgURL: record.media_type.startsWith("image")
+                    ? `${localStorage.getItem(
+                        "base_url"
+                      )}/_matrix/media/v1/thumbnail/${localStorage.getItem(
+                        "home_server"
+                      )}/${record.media_id}?width=40&height=40&method=crop`
+                    : null,
+                  downloadURL: `${localStorage.getItem(
+                    "base_url"
+                  )}/_matrix/media/r0/download/${localStorage.getItem(
+                    "home_server"
+                  )}/${record.media_id}`,
+                };
 
-                  return (
-                    <Tooltip title={data["title"]}>
-                      <Avatar
-                        src={data["imgURL"]}
-                        onClick={() => window.open(data["downloadURL"])}
-                        variant="square"
-                      >
-                        <BrokenImageIcon />
-                      </Avatar>
-                    </Tooltip>
-                  );
-                }}
-              />
-              <DateField
-                source="created_ts"
-                showTime
-                options={{
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                }}
-              />
-              <Datagrid style={{ width: "100%" }}>
+                return (
+                  <Tooltip title={data["title"]}>
+                    <Avatar
+                      src={data["imgURL"]}
+                      onClick={() => window.open(data["downloadURL"])}
+                      variant="square"
+                    >
+                      <BrokenImageIcon />
+                    </Avatar>
+                  </Tooltip>
+                );
+              }}
+            />
+            <DateField
+              source="created_ts"
+              showTime
+              options={{
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              }}
+            />
+            <Datagrid style={{ width: "100%" }}>
               <DateField source="created_ts" showTime options={date_format} />
               <DateField
                 source="last_access_ts"
